@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "class2icalendar"
+version = "0.1.0"
+description = ""
+authors = ["everclass <admin@everclass.xyz>"]
+license = "AGPL-3.0"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pyquery = "^1.4.3"
+icalendar = "^4.0.9"
+requests = "^2.26.0"
+
+[tool.poetry.dev-dependencies]
+black = {version = "^21.12b0", allow-prereleases = true}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
