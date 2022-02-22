@@ -1,4 +1,4 @@
-# class2icalander
+# Class2iCalendar
 
 ## Usage
 
