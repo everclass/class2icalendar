@@ -17,7 +17,7 @@ CLASS_5 = timedelta(hours=19)
 CLASS_DICT = {1: CLASS_1, 2: CLASS_2, 3: CLASS_3, 4: CLASS_4, 5: CLASS_5}
 
 
-def anylaze(str: str, str2: str):
+def analyze(str: str, str2: str):
     res = []
     if "," in str:
         res = list(int(i) for i in str.split(","))
@@ -57,7 +57,7 @@ for i, e in enumerate(pq("td[height='28']").items()):
                 cls_ = {}
                 cls_["课程"] = class_["课程"].split(" ")[i]
                 cls_["教师"] = class_["教师"].split(" ")[i]
-                cls_["周次"] = anylaze(
+                cls_["周次"] = analyze(
                     class_["周次"].split(" ")[i], class_["单双周"].split(" ")[i]
                 )
 
@@ -68,7 +68,7 @@ for i, e in enumerate(pq("td[height='28']").items()):
         else:
             class_["周几"] = int(e("font[title$=')']").attr("title")[-6])
             class_["第几节"] = int(int(e("font[title$=')']").attr("title")[-4]) / 2 + 1)
-            class_["周次"] = anylaze(class_["周次"], class_["单双周"])
+            class_["周次"] = analyze(class_["周次"], class_["单双周"])
             class_info.append(class_)
 
 semester_start = datetime.strptime(semester_start, "%Y-%m-%d")
@@ -76,7 +76,7 @@ first_day = semester_start - timedelta(days=semester_start.weekday() + 1) - WEEK
 
 cal = Calendar()
 cal.add("x-wr-calname", f"{name}的 {semester} 课表")
-cal.add("x-wr-tiemzone", "Asia/Shanghai")
+cal.add("x-wr-timezone", "Asia/Shanghai")
 for class_ in class_info:
     for 周次 in class_["周次"]:
         event = Event()
