@@ -17,10 +17,11 @@ CLASS_5 = timedelta(hours=19)
 CLASS_DICT = {1: CLASS_1, 2: CLASS_2, 3: CLASS_3, 4: CLASS_4, 5: CLASS_5}
 
 
-def analyze(str: str, str2: str):
+def analyze(str: str, str2: str = "周"):
     res = []
     if "," in str:
-        res = list(int(i) for i in str.split(","))
+        for r in map(analyze, list(i for i in str.split(","))):
+            res.extend(r)
     elif "-" in str:
         res = list(range(int(str.split("-")[0]), int(str.split("-")[1]) + 1))
     else:
