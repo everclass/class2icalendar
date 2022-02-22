@@ -48,27 +48,25 @@ pq = PyQuery(resp.text)
 for i, e in enumerate(pq("td[height='28']").items()):
     class_ = {}
     class_["课程"] = e("font[title$=')']").text()
-    class_["教师"] = e("font[title='老师']").text()
-    class_["周次"] = e("font[title='周次']").text()
-    class_["单双周"] = e("font[title='单双周']").text()
-    class_["教室"] = e("font[title='上课地点教室']").text()
     if class_["课程"]:
+        class_["教师"] = e("font[title='老师']").text()
+        class_["周次"] = e("font[title='周次']").text()
+        class_["单双周"] = e("font[title='单双周']").text()
+        class_["教室"] = e("font[title='上课地点教室']").text()
+        class_["周几"] = i % 7
+        class_["第几节"] = i // 7 + 1
+
         if " " in class_["课程"]:
             for i, _ in enumerate(class_["课程"].split(" ")):
-                cls_ = {}
+                cls_ = class_.copy()
                 cls_["课程"] = class_["课程"].split(" ")[i]
                 cls_["教师"] = class_["教师"].split(" ")[i]
                 cls_["周次"] = analyze(
                     class_["周次"].split(" ")[i], class_["单双周"].split(" ")[i]
                 )
-
-                cls_["周几"] = int(e("font[title$=')']").attr("title")[-6])
-                cls_["第几节"] = int(int(e("font[title$=')']").attr("title")[-4]) / 2 + 1)
                 cls_["教室"] = class_["教室"].split(" ")[i]
                 class_info.append(cls_)
         else:
-            class_["周几"] = int(e("font[title$=')']").attr("title")[-6])
-            class_["第几节"] = int(int(e("font[title$=')']").attr("title")[-4]) / 2 + 1)
             class_["周次"] = analyze(class_["周次"], class_["单双周"])
             class_info.append(class_)
 
